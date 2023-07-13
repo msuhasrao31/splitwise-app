@@ -138,8 +138,23 @@ public class Main {
             expenseManager.addExpense(expense);
         }
 
-        // Show balances
-        expenseManager.showAllBalances();
+        while (true) {
+            System.out.print("Enter a command (SHOW or SHOW <user-id>): ");
+            String command = scanner.nextLine();
+            if (command.equals("SHOW")) {
+                expenseManager.showAllBalances();
+            } else if (command.startsWith("SHOW ")) {
+                String[] tokens = command.split(" ");
+                if (tokens.length == 2) {
+                    String userId = tokens[1];
+                    expenseManager.showBalance(userId);
+                } else {
+                    System.out.println("Invalid command. Please try again.");
+                }
+            } else {
+                break;
+            }
+        }
 
         scanner.close();
     }
